@@ -1,0 +1,24 @@
+version: "3.3"
+services:
+ phpapache:
+  build: dock
+  volumes:
+   - ".:/var/www/html"
+  links:
+   - mariadb:db
+  ports:
+   - 8889:80
+
+ mariadb:
+  image: mariadb:latest
+  container_name: mariadbjb
+  environment:
+   - MYSQL_ROOT_PASSWORD=root
+
+ phpmyadmin:
+  image: phpmyadmin/phpmyadmin:latest
+  container_name: phpmyadminjb
+  ports:
+   - 8780:80
+  links:
+   - mariadb:db
